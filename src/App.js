@@ -1,23 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { makeStyles } from "@material-ui/core/styles";
+import { TextField, Button } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import * as types from './redux/actionTypes'
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "45ch",
+    },
+  },
+}));
 
 function App() {
+  const classes = useStyles();
+  const [search,setSearch]=useState("");
+  const [query,setQuery]=useState("chicken")
+  useSelector
+  const dispatch=useDispatch()
+  useEffect(()=>{
+  },[query]);
+
+  //Search button handler
+  const searchHandler = (e) => {
+    setQuery(search);
+    setSearch("");
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <h2>Recipe App</h2>
+      <form className={classes.root} noValidate autoComplete="off">
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ width: "80px", height: "50px" }}
+          type="submit"
+          onClick={searchHandler}
         >
-          Learn React
-        </a>
-      </header>
+          Search
+        </Button>
+      </form>
     </div>
   );
 }
